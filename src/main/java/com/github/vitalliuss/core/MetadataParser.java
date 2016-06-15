@@ -9,6 +9,7 @@ import com.drew.metadata.Tag;
  */
 public class MetadataParser {
 
+    public static final String N_A = "N/A";
     private Metadata metadata;
 
     public MetadataParser(Metadata metadata) {
@@ -16,17 +17,29 @@ public class MetadataParser {
     }
 
     public String getAperture() {
-        // Iterate over the data and print to System.out
-        //
-        // A Metadata object contains multiple Directory objects
-        //
-        for (Directory directory : metadata.getDirectories()) {
+        return getParamenter("F-Number");
+    }
 
-            //
-            // Each Directory stores values in Tag objects
-            //
+    public String getExposureTime() {
+        return getParamenter("Shutter Speed Value");
+    }
+
+    public String getFocalLength() {
+        return getParamenter("Focal Length");
+    }
+
+    public String getISO() {
+        return getParamenter("ISO Speed Ratings");
+    }
+
+    public String getDateTime() {
+        return getParamenter("//Date/Time");
+    }
+
+    private String getParamenter(String containsString){
+        for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
-                if (tag.getTagName().trim().contains("F-Number")) {
+                if (tag.getTagName().trim().contains(containsString)) {
                     return tag.toString();
                 }
             }
@@ -38,7 +51,24 @@ public class MetadataParser {
             }
         }
 
-        return "";
+        return N_A;
+    }
+
+    public String getAllMetadata(){
+        StringBuffer stringBuffer = new StringBuffer();
+        for (Directory directory : metadata.getDirectories()) {
+            for (Tag tag : directory.getTags()) {
+                stringBuffer.append(tag.toString()).append("\n");
+            }
+
+            if (directory.hasErrors()) {
+                for (String error : directory.getErrors()) {
+                    System.err.println("ERROR: " + error);
+                }
+            }
+        }
+
+        return stringBuffer.toString();
     }
 
 }
