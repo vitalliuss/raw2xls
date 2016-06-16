@@ -17,30 +17,27 @@ public class MetadataParser {
     }
 
     public String getAperture() {
-        return getParamenter("F-Number");
+        return getParamenter("[Exif SubIFD] F-Number - ");
     }
 
     public String getExposureTime() {
-        return getParamenter("Shutter Speed Value");
+        return getParamenter("[Exif SubIFD] Shutter Speed Value - ");
     }
 
     public String getFocalLength() {
-        return getParamenter("Focal Length");
+        return getParamenter("[Exif SubIFD] Focal Length - ");
     }
 
     public String getISO() {
-        return getParamenter("ISO Speed Ratings");
-    }
-
-    public String getDateTime() {
-        return getParamenter("//Date/Time");
+        return getParamenter("[Exif SubIFD] ISO Speed Ratings - ");
     }
 
     private String getParamenter(String containsString){
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
-                if (tag.getTagName().trim().contains(containsString)) {
-                    return tag.toString();
+                if (tag.toString().trim().contains(containsString)) {
+                    String parameter = tag.toString();
+                    return parameter.replace(containsString, "");
                 }
             }
 

@@ -19,7 +19,7 @@ public class FileReader {
     }
 
     public File[] getAllFilesInDirectory(File path){
-        final String[] acceptedExtensions = new String[] { ".jpg", ".cr2" };
+        final String[] acceptedExtensions = new String[] { ".jpg", ".jpeg", ".cr2" };
 
         final File[] files = path.listFiles(new FileFilter()
         {
@@ -36,6 +36,7 @@ public class FileReader {
             }
         });
 
+        System.out.println("Found [" + files.length + "] images");
         return files;
     }
 }

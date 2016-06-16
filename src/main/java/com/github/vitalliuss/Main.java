@@ -3,6 +3,8 @@ package com.github.vitalliuss;
 import com.drew.metadata.Metadata;
 import com.github.vitalliuss.core.ExifReader;
 import com.github.vitalliuss.core.FileReader;
+import com.github.vitalliuss.core.MetadataParser;
+import com.github.vitalliuss.excel.ExcelWriter;
 import com.github.vitalliuss.objects.Image;
 
 import java.io.File;
@@ -24,19 +26,26 @@ public class Main
 
         try {
             FileReader fileReader = new FileReader();
-            File baseDir = new File("c:\\data\\photo\\Shenzhen\\");
+            File baseDir = new File(".");
             System.out.println("Searching file in directory: [" + baseDir + "]");
             File[] fileList = fileReader.getAllFilesInDirectory(baseDir);
 
             List<Image> imageList = exifReader.getListOfImagesFromFileList(fileList);
 
             for(Image image : imageList){
-                image.toString();
+                MetadataParser metadataParser = new MetadataParser(image.getMetadata());
+                image.setAperture(metadataParser.getAperture());
+                image.setExposureTime(metadataParser.getExposureTime());
+                image.setFocalLength(metadataParser.getFocalLength());
+                image.setISO(metadataParser.getISO());
+//                System.out.println(metadataParser.getAllMetadata());
+//                System.out.println(image.toString());
             }
+            ExcelWriter excelWriter = new ExcelWriter();
+            excelWriter.writeDataToExcel(imageList);
 
         } catch (IOException e) {
             e.printStackTrace();
         };
-//
     }
 }
