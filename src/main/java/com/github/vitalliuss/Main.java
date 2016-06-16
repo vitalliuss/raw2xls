@@ -11,9 +11,11 @@ public class Main
     public static void main( String[] args ) throws URISyntaxException {
         CommandLineArguments commandLineArguments = new CommandLineArguments();
         CmdLineParser parser = new CmdLineParser(commandLineArguments);
+
         try {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
+            System.out.println("Something went wrong when parsing arguments");
             parser.printUsage(System.out);
         }
 

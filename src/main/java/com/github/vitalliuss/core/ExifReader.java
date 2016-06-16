@@ -18,20 +18,18 @@ public class ExifReader {
     public ExifReader() {
     }
 
-    public Metadata readMetadataFromFile(File file){
+    private Metadata readMetadataFromFile(File file){
         Metadata metadata = new Metadata();
         try {
             metadata = ImageMetadataReader.readMetadata(file);
-        } catch (ImageProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ImageProcessingException | IOException e) {
             e.printStackTrace();
         }
 
         return metadata;
     }
 
-    public List<Image> getListOfImagesFromFileList(File[] fileList) throws IOException {
+    public List<Image> getListOfImagesFromFileList(File[] fileList) {
         List<Image> imageList = new LinkedList<>();
 
         for (File file : fileList) {

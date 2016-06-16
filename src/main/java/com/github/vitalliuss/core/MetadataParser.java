@@ -9,7 +9,7 @@ import com.drew.metadata.Tag;
  */
 public class MetadataParser {
 
-    public static final String N_A = "N/A";
+    private final String N_A = "N/A";
     private Metadata metadata;
 
     public MetadataParser(Metadata metadata) {
@@ -17,22 +17,22 @@ public class MetadataParser {
     }
 
     public String getAperture() {
-        return getParamenter("[Exif SubIFD] F-Number - ");
+        return getParameter("[Exif SubIFD] F-Number - ");
     }
 
     public String getExposureTime() {
-        return getParamenter("[Exif SubIFD] Shutter Speed Value - ");
+        return getParameter("[Exif SubIFD] Shutter Speed Value - ");
     }
 
     public String getFocalLength() {
-        return getParamenter("[Exif SubIFD] Focal Length - ");
+        return getParameter("[Exif SubIFD] Focal Length - ");
     }
 
     public String getISO() {
-        return getParamenter("[Exif SubIFD] ISO Speed Ratings - ");
+        return getParameter("[Exif SubIFD] ISO Speed Ratings - ");
     }
 
-    private String getParamenter(String containsString){
+    private String getParameter(String containsString){
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
                 if (tag.toString().trim().contains(containsString)) {
@@ -50,22 +50,4 @@ public class MetadataParser {
 
         return N_A;
     }
-
-    public String getAllMetadata(){
-        StringBuffer stringBuffer = new StringBuffer();
-        for (Directory directory : metadata.getDirectories()) {
-            for (Tag tag : directory.getTags()) {
-                stringBuffer.append(tag.toString()).append("\n");
-            }
-
-            if (directory.hasErrors()) {
-                for (String error : directory.getErrors()) {
-                    System.err.println("ERROR: " + error);
-                }
-            }
-        }
-
-        return stringBuffer.toString();
-    }
-
 }

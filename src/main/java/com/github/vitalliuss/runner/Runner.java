@@ -19,10 +19,13 @@ public class Runner {
         ExifReader exifReader = new ExifReader();
 
         try {
+            System.out.println("Searching images in directory: [" + dirToRead + "]");
             FileReader fileReader = new FileReader();
-            File baseDir = new File(dirToRead);
-            System.out.println("Searching file in directory: [" + baseDir + "]");
-            File[] fileList = fileReader.getAllFilesInDirectory(baseDir);
+            File[] fileList = fileReader.getAllFilesInDirectory(dirToRead);
+
+            if (null == fileList){
+                System.exit(1);
+            }
 
             List<Image> imageList = exifReader.getListOfImagesFromFileList(fileList);
 
@@ -38,6 +41,6 @@ public class Runner {
 
         } catch (IOException e) {
             e.printStackTrace();
-        };
+        }
     }
 }

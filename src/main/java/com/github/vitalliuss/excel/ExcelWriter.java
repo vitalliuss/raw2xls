@@ -5,7 +5,6 @@ import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -15,13 +14,13 @@ import java.util.List;
  */
 public class ExcelWriter {
 
-    private final String XLS_EXTENTION = ".xlsx";
+    private final String XLS_EXTENSION = ".xlsx";
 
     public void writeDataToExcel(List<Image> imageList, String fileToWrite) throws IOException {
-        System.out.println("Writing data in Excel: " + fileToWrite + XLS_EXTENTION);
+        System.out.println("Writing data in Excel: " + fileToWrite + XLS_EXTENSION);
         SXSSFWorkbook workbook = new SXSSFWorkbook();
         SXSSFSheet sheet = workbook.createSheet();
-        SXSSFRow headerRow = createHeaderRow(sheet);
+        createHeaderRow(sheet);
         for (int i = 0; i < imageList.size(); i++){
             SXSSFRow row = sheet.createRow(i+1);
             row.createCell(0).setCellValue(imageList.get(i).getPath());
@@ -30,7 +29,7 @@ public class ExcelWriter {
             row.createCell(3).setCellValue(imageList.get(i).getExposureTime());
             row.createCell(4).setCellValue(imageList.get(i).getISO());
         }
-        FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite + XLS_EXTENTION);
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite + XLS_EXTENSION);
         workbook.write(fileOutputStream);
         fileOutputStream.close();
     }

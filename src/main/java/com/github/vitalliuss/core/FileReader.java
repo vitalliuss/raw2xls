@@ -1,14 +1,7 @@
 package com.github.vitalliuss.core;
 
-import com.drew.metadata.Metadata;
-
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Vitali_Shulha on 15-Jun-16.
@@ -18,9 +11,10 @@ public class FileReader {
     public FileReader() {
     }
 
-    public File[] getAllFilesInDirectory(File path){
+    public File[] getAllFilesInDirectory(String directoryToRead){
         final String[] acceptedExtensions = new String[] { ".jpg", ".jpeg", ".cr2" };
-        printAccetedExtentions(acceptedExtensions);
+        printAcceptedExtentions(acceptedExtensions);
+        File path = new File(directoryToRead);
         final File[] files = path.listFiles(new FileFilter()
         {
             public boolean accept(final File file)
@@ -47,8 +41,8 @@ public class FileReader {
         return files;
     }
 
-    private void printAccetedExtentions(String[] acceptedExtensions) {
-        System.out.println("Accepted extentions for images: ");
+    private void printAcceptedExtentions(String[] acceptedExtensions) {
+        System.out.println("Accepted extensions for images: ");
         for (String extension : acceptedExtensions) {
             System.out.println("    [" + extension + "]");
         }
