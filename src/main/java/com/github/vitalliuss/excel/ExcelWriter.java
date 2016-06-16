@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class ExcelWriter {
 
-    public static final String TARGET_OUTPUT_XLSX = "output.xlsx";
+    private final String XLS_EXTENTION = ".xlsx";
 
-    public void writeDataToExcel(List<Image> imageList) throws IOException {
-        System.out.println("Writing data in Excel: " + TARGET_OUTPUT_XLSX);
+    public void writeDataToExcel(List<Image> imageList, String fileToWrite) throws IOException {
+        System.out.println("Writing data in Excel: " + fileToWrite + XLS_EXTENTION);
         SXSSFWorkbook workbook = new SXSSFWorkbook();
         SXSSFSheet sheet = workbook.createSheet();
         SXSSFRow headerRow = createHeaderRow(sheet);
@@ -30,7 +30,7 @@ public class ExcelWriter {
             row.createCell(3).setCellValue(imageList.get(i).getExposureTime());
             row.createCell(4).setCellValue(imageList.get(i).getISO());
         }
-        FileOutputStream fileOutputStream = new FileOutputStream(TARGET_OUTPUT_XLSX);
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToWrite + XLS_EXTENTION);
         workbook.write(fileOutputStream);
         fileOutputStream.close();
     }

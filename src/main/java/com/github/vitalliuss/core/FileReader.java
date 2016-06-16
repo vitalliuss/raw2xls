@@ -20,7 +20,7 @@ public class FileReader {
 
     public File[] getAllFilesInDirectory(File path){
         final String[] acceptedExtensions = new String[] { ".jpg", ".jpeg", ".cr2" };
-
+        printAccetedExtentions(acceptedExtensions);
         final File[] files = path.listFiles(new FileFilter()
         {
             public boolean accept(final File file)
@@ -28,15 +28,29 @@ public class FileReader {
                 if (file.isDirectory())
                     return false;
                 for (String extension : acceptedExtensions) {
-                    if (file.getName().toLowerCase().endsWith(extension))
+                    if (file.getName().toLowerCase().endsWith(extension)) {
                         System.out.println("Found image: [" + file.getName() + "]");
                         return true;
+                    }
                 }
                 return false;
             }
         });
 
-        System.out.println("Found [" + files.length + "] images");
+        if(null == files){
+            System.out.println("No files found in directory: " + path.toString());
+        }
+        else{
+            System.out.println("Found [" + files.length + "] images");
+        }
+
         return files;
+    }
+
+    private void printAccetedExtentions(String[] acceptedExtensions) {
+        System.out.println("Accepted extentions for images: ");
+        for (String extension : acceptedExtensions) {
+            System.out.println("    [" + extension + "]");
+        }
     }
 }

@@ -73,5 +73,10 @@
       <artifactId>poi-ooxml</artifactId>
       <version>3.15-beta1</version>
     </dependency>
+    <dependency>
+      <groupId>args4j</groupId>
+      <artifactId>args4j</artifactId>
+      <version>2.33</version>
+    </dependency>
   </dependencies>
 </project>
