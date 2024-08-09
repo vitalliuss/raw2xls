@@ -1,19 +1,39 @@
-#Idea
-.idea
-*.iml
+# Visual Studio
+.vs/
 
-#Maven
-target/
+# Build results
+[Bb]in/
+[Oo]bj/
 
-*.class
+# Roslyn cache directories
+*.ide/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.userprefs
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
